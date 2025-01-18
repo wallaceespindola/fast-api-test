@@ -78,5 +78,10 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     return response
 
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "time": datetime.now()}
+
 # To run the server:
 # uvicorn main:app --reload
