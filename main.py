@@ -53,7 +53,7 @@ def delete_item(item_id: int):
     return {"message": "Item deleted", "item_id": item_id}
 
 
-@app.get("/async-endpoint")
+@app.post("/async-endpoint")
 async def read_async():
     await asyncio.sleep(2)  # Simulate an async operation
     return {"status": f"This endpoint waited for 2 seconds asynchronously: {datetime.now()}"}
@@ -61,13 +61,13 @@ async def read_async():
 
 def send_notification(email: str, message: str):
     # Logic to send email/notification
-    print(f"Sending notification to {email} with message: {message}")
+    print(f"Sending notification to {email} with message: {message} - {datetime.now()}")
 
 
 @app.post("/notify")
 def notify_user(email: str, background_tasks: BackgroundTasks):
     background_tasks.add_task(send_notification, email, "Your data is processed")
-    return {"message": "Notification scheduled"}
+    return {"message": f"Notification scheduled: {datetime.now()}"}
 
 
 @app.middleware("http")
