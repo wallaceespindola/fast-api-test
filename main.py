@@ -1,6 +1,7 @@
 import asyncio
 import time
 from datetime import datetime
+from sndhdr import tests
 
 from fastapi import BackgroundTasks
 from fastapi import FastAPI
@@ -16,6 +17,20 @@ class Item(BaseModel):
     price: float
     is_offer: bool = False
 
+
+def test_item_with_error_message():
+    item = Item(name="test", price="hi")
+    print(item)
+    assert item.name == "test"
+    assert item.price == 10.0
+    assert item.is_offer is False
+
+def test_item_with_no_error_message():
+    item = Item(name="test", price=10)
+    print(item)
+    assert item.name == "test"
+    assert item.price == 10.0
+    assert item.is_offer is False
 
 @app.get("/")
 def read_root():
@@ -85,3 +100,8 @@ def health_check():
 
 # To run the server:
 # uvicorn main:app --reload
+
+# run with main
+if __name__ == "__main__":
+    test_item_with_no_error_message()
+    test_item_with_error_message()
