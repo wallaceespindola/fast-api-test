@@ -1,10 +1,8 @@
 import asyncio
 import time
 from datetime import datetime
-from sndhdr import tests
 
-from fastapi import BackgroundTasks
-from fastapi import FastAPI
+from fastapi import BackgroundTasks, FastAPI
 from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.responses import Response
@@ -25,12 +23,14 @@ def test_item_with_error_message():
     assert item.price == 10.0
     assert item.is_offer is False
 
+
 def test_item_with_no_error_message():
     item = Item(name="test", price=10)
     print(item)
     assert item.name == "test"
     assert item.price == 10.0
     assert item.is_offer is False
+
 
 @app.get("/")
 def read_root():
@@ -97,6 +97,7 @@ async def add_process_time_header(request: Request, call_next):
 @app.get("/health")
 def health_check():
     return {"status": "ok", "time": datetime.now()}
+
 
 # To run the server:
 # uvicorn main:app --reload
